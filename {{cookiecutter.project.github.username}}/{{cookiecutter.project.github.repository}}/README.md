@@ -1,5 +1,5 @@
 # {{cookiecutter.project.title}}
 
-## Description
+## Description
 
 {{cookiecutter.project.description}}
