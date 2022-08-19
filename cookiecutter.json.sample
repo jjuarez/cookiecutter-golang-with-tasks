@@ -1,0 +1,18 @@
+{
+  "author": {
+    "name": "Fisrt Last",
+    "email": "nickname@example.org"
+  },
+  "project": {
+    "title": "Example",
+    "description": "This is a template for a [golang](https://go.dev) project managed by [taskfile.dev](https://taskfile.dev)",
+    "github": {
+      "username": "username",
+      "repository": "example"
+    }
+  },
+  "year": "2022",
+  "go": {
+    "version": "1.19"
+  }
+}

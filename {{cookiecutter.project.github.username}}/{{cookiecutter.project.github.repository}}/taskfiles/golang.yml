@@ -1,0 +1,28 @@
+---
+version: '3'
+
+tasks:
+  clean:
+    summary: |
+      Clean all the project temporary stuff.
+    cmds:
+      - rm -f dist/*
+    silent: true
+
+  build:
+    summary: |
+      Builds the project binary.
+    cmds:
+      - go build -v -o ./dist ./...
+
+  run:
+    summary: |
+      Runs the main program.
+    cmds:
+      - go run -v ./...
+
+  test:
+    summary: | 
+      Execute the unit test suites.
+    cmds:
+      - go test -v ./...

@@ -1,0 +1,6 @@
+# .gitignore
+.vscode
+.cache
+__pycache__
+dist
+cookiecutter.json
