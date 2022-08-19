@@ -3,12 +3,18 @@
 .DEFAULT_GOAL  := help
 .DEFAULT_SHELL := /bin/bash
 
-VENV ?= .venv
-PIP  := $(VENV)/bin/pip
+VENV     ?= .venv
+PIP      := $(VENV)/bin/pip
+PIP_OPTS ?= --require-virtualenv --disable-pip-version-check
 
-OUTPUT_DIRECTORY  := ./dist
-COOKIECUTTER_OPTS := --verbose --no-input --skip-if-file-exists --output-dir $(OUTPUT_DIRECTORY)
+COOKIECUTTER_CONFIG ?= cookiecutter.json
+OUTPUT_DIRECTORY    := ./dist
+COOKIECUTTER_OPTS   := --verbose --no-input --skip-if-file-exists
 
+
+define assert-file
+	@$(if $(wildcard $(1) 2>/dev/null),,$(error $(1) does not exist))
+endef
 
 .PHONY: help
 help: ## Shows this pretty help screen
@@ -17,8 +23,7 @@ help: ## Shows this pretty help screen
 $(VENV):
 	@python -m venv $(VENV)
 	@. $(VENV)/bin/activate
-	@$(PIP) install --quiet --upgrade pip
-	@$(PIP) install --quiet -r requirements-dev.txt
+	@$(PIP) install $(PIP_OPTS) --requirement requirements-dev.txt
 
 .PHONY: setup
 setup: $(VENV)
@@ -33,7 +38,8 @@ activate: setup
 
 .PHONY: generate
 generate: activate ## Generate the project from the template
-	@$(VENV)/bin/cookiecutter $(COOKIECUTTER_OPTS) .
+	$(call assert-file,$(COOKIECUTTER_CONFIG))
+	@$(VENV)/bin/cookiecutter $(COOKIECUTTER_OPTS) --config-file $(COOKIECUTTER_CONFIG) --output-dir $(OUTPUT_DIRECTORY) .
 
 .PHONY: test
 test: activate ## Unit test
@@ -41,5 +47,5 @@ test: activate ## Unit test
 
 .PHONY: clean
 clean: ## Clean the template results
-	@rm -fr $(OUTPUT_DIRECTORY)/* tests/__pycache__ .pytest_cache
+	@rm -fr $(OUTPUT_DIRECTORY)/* ./tests/__pycache__ .pytest_cache
 	@find . -type f -iname *.py[co] -delete

@@ -6,6 +6,7 @@ A cookiecutter template for [golang](https://go.dev) projects managed by [Taskfi
 * Basic `Makefile` support
 * Uses [testify](https://github.com/stretchr/testify) as Test framework
 * Provides a golang scafold ready to use
+* A basic [`Dockerfile`](./{{cookiecutter.project.github.username}}/{{cookiecutter.project.github.repository}}/Dockerfile)
 
 ## 🎬 Getting Started
 * Alfter cloning the repository you should complete the data for your project, to help you with thist [here](./cookicutter.json.sample), de default name for the configuration file is `cookiecutter.json` but takin a look to the [`Makefile`](./Makefile) I'm pretty sure that you can figure out how to have several project configurations ;)
